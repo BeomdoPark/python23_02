@@ -1,3 +1,4 @@
 # python23_02
 
-my first project!
+Department of Computer Engineering, Hanbat National University
+github-classroom records
