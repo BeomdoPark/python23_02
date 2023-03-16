@@ -1,0 +1,6 @@
+[submodule "week1-BeomdoPark"]
+	path = week1-BeomdoPark
+	url = https://github.com/HBNU-Python23/week1-BeomdoPark.git
+[submodule "week2-statement-BeomdoPark"]
+	path = week2-statement-BeomdoPark
+	url = https://github.com/HBNU-SWUNIV/week2-statement-BeomdoPark.git
