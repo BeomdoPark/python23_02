@@ -4,3 +4,6 @@
 [submodule "week2-statement-BeomdoPark"]
 	path = week2-statement-BeomdoPark
 	url = https://github.com/HBNU-SWUNIV/week2-statement-BeomdoPark.git
+[submodule "week3-variable-BeomdoPark"]
+	path = week3-variable-BeomdoPark
+	url = https://github.com/HBNU-SWUNIV/week3-variable-BeomdoPark.git
