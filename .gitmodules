@@ -13,3 +13,6 @@
 [submodule "week5-function-BeomdoPark"]
 	path = week5-function-BeomdoPark
 	url = https://github.com/HBNU-SWUNIV/week5-function-BeomdoPark.git
+[submodule "week6-module-BeomdoPark"]
+	path = week6-module-BeomdoPark
+	url = https://github.com/HBNU-SWUNIV/week6-module-BeomdoPark.git
