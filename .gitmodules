@@ -16,3 +16,9 @@
 [submodule "week6-module-BeomdoPark"]
 	path = week6-module-BeomdoPark
 	url = https://github.com/HBNU-SWUNIV/week6-module-BeomdoPark.git
+[submodule "week7-datastructure-BeomdoPark"]
+	path = week7-datastructure-BeomdoPark
+	url = https://github.com/HBNU-SWUNIV/week7-datastructure-BeomdoPark.git
+[submodule "week9-file-BeomdoPark"]
+	path = week9-file-BeomdoPark
+	url = https://github.com/HBNU-SWUNIV/week9-file-BeomdoPark.git
