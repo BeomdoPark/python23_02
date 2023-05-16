@@ -1,7 +1,7 @@
 # menu_stocks = {1:"apple", 2:"mango", 3:"abc", 4:"ace"}
 # stocks = {"apple":[20, 1000,total_profit], "mango":[10, 2000,total_profit],}
 """
-○ △ x
+진행상황 ○ △ x
 REQ-001 : ○
 REQ-002 : ○
 REQ-003 : ○
@@ -9,8 +9,8 @@ REQ-004 : ○
 REQ-005 : ○
 REQ-006 : ○
 REQ-007 : ○
-REQ-008 : x  -->history.csv 메뉴 값 및 입력 값 저장.
-REQ-009 : x  -->sales.csv apple, 1000, 5, 5000
+REQ-008 : ○  -->history.csv 메뉴 값 및 입력 값 저장.
+REQ-009 : ○  -->sales.csv apple, 1000, 5, 5000
                 apple, 1000, 5, 10000
                 과 같이 판매한 품목과 가격, 개수 및 판매 누적금액을 sales.csv에 기
                 록한다.
@@ -19,14 +19,12 @@ REQ-009 : x  -->sales.csv apple, 1000, 5, 5000
 # 자료구조 선언
 menu_stocks = {}  # { key(ID) : value(menu) }
 stocks = {}  # { key(menu) : value([amount, value, total_profit]) }
-sales_log = []
 
 f = open("stf2.csv", "r")
-rows_when_init = len(f.readlines())  # 전체 줄 개수
-f.seek(0)  # f.readlines() 이후 seek(0)
-
 history_file = open("history.csv", "w")  # history.csv 생성 메뉴 값 및 입력 값 저장
 sales_file = open("sales.csv", "w")  # history.csv 생성
+rows_when_init = len(f.readlines())  # 전체 줄 개수
+f.seek(0)  # f.readlines() 이후 seek(0)
 
 
 def init():
@@ -45,11 +43,12 @@ def init():
     file = open("stf2.csv", "w+")
     file.write("id,name,amount,value,\n")
     f.close()
+    sales_file.write("name,value,count,profit\n")
     pass
 
 
 def sell(key, count):
-    global stocks
+    # global stocks
     print(f"Sell {key}, amount:{stocks[key][0]}")
     stocks[key][2] += stocks[key][1] * count  # stocks[key][2](=total_profit) 증감식
     if stocks[key][0] >= count:
@@ -88,6 +87,7 @@ def add_menu():
     name = input("Enter the menu's [name] : ")
     amount = int(input("Enter [amount] of menu : "))
     value = int(input("Enter the [price] of menu : "))
+    history_file.write(f"{name}\n{amount}\n{value}\n")
 
     for i in range(1, sorted(menu_stocks.keys())[-1] + 2):
         if i not in menu_stocks.keys():  # id가 자동으로 부여됨
@@ -102,7 +102,9 @@ def delete_menu():
     for key, item in sorted(menu_stocks.items()):
         print(f"[id] {key} : {item}")
     select_id = int(input("Enter the [id] of the item to be deleted : "))
+    history_file.write(f"{select_id}\n")
     del stocks[menu_stocks[select_id]], menu_stocks[select_id]
+
     pass
 
 
@@ -117,7 +119,6 @@ def exit_with_savecsv():
         file.write(
             f"{key},{menu_name},{stocks[menu_name][0]},{stocks[menu_name][1]},\n"
         )
-
     file.close()
     history_file.close()
     sales_file.close()
@@ -132,8 +133,10 @@ while True:
     print_store()
     print_menu()
     choice = int(input("Enter Choice:"))
+    history_file.write(f"{choice}\n")
     if choice not in [0, 97, 98, 99]:
         amount = int(input("Enter amount:"))
+        history_file.write(f"{amount}\n")
         sell(menu_stocks[choice], amount)
         pass
     elif choice == 0:
