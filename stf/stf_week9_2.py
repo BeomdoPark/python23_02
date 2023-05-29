@@ -1,20 +1,5 @@
 # menu_stocks = {1:"apple", 2:"mango", 3:"abc", 4:"ace"}
 # stocks = {"apple":[20, 1000,total_profit], "mango":[10, 2000,total_profit],}
-"""
-진행상황 ○ △ x
-REQ-001 : ○
-REQ-002 : ○
-REQ-003 : ○
-REQ-004 : ○
-REQ-005 : ○
-REQ-006 : ○
-REQ-007 : ○
-REQ-008 : ○  -->history.csv 메뉴 값 및 입력 값 저장.
-REQ-009 : ○  -->sales.csv apple, 1000, 5, 5000
-                apple, 1000, 5, 10000
-                과 같이 판매한 품목과 가격, 개수 및 판매 누적금액을 sales.csv에 기
-                록한다.
-"""
 
 # 자료구조 선언
 menu_stocks = {}  # { key(ID) : value(menu) }
@@ -44,7 +29,6 @@ def init():
     file.write("id,name,amount,value,\n")
     f.close()
     sales_file.write("name,value,count,profit\n")
-    pass
 
 
 def sell(key, count):
@@ -64,22 +48,21 @@ def print_store(choice=1):
     if choice == 1:
         print("==========STF============")
     elif choice == 0:
-        print("재고상황")
+        print("Print Store")
     for key, value in sorted(menu_stocks.items()):
         print(f"{value} : {stocks[value][0:2]}")
 
 
 # 메뉴 시작화면 출력
 def print_menu():
-    print("0. 품목 및 재고상황 확인")
-
     for key, value in sorted(menu_stocks.items()):
         print(f"{key}. Buy {value}")
 
-    print("97. 품목추가")
-    print("98. 품목삭제")
+    print("97. Insert Item")
+    print("98. Remove Item")
     print("99. Bye")
-    print("=========================")
+    print("0. Print Stock")
+    print("=========================\n")
 
 
 # 97. 품목 추가 : 품목명, 재고 수, 가격을 입력 받고 품목 ID를 자동으로 부여, 자료구조에 추가.
@@ -90,11 +73,10 @@ def add_menu():
     history_file.write(f"{name}\n{amount}\n{value}\n")
 
     for i in range(1, sorted(menu_stocks.keys())[-1] + 2):
-        if i not in menu_stocks.keys():  # id가 자동으로 부여됨
+        if menu_stocks.get(i) == None:  # id가 자동으로 부여됨
             menu_stocks[i] = name  # menu_stocks dict에 append 기능을 함
             stocks[name] = [amount, value, 0]
             break
-    pass
 
 
 # 98. 품목 삭제 : 현재 품목을 보여주고, 사용자가 선택한 품목을 삭제. csv내 해당 품목에 대한 정보삭제.
@@ -104,8 +86,6 @@ def delete_menu():
     select_id = int(input("Enter the [id] of the item to be deleted : "))
     history_file.write(f"{select_id}\n")
     del stocks[menu_stocks[select_id]], menu_stocks[select_id]
-
-    pass
 
 
 # 99. Bye : stf2.csv에 현재 ID,menu,amount,value 저장
@@ -123,8 +103,6 @@ def exit_with_savecsv():
     history_file.close()
     sales_file.close()
 
-    pass
-
 
 # 프로그램 동작
 init()
@@ -134,22 +112,18 @@ while True:
     print_menu()
     choice = int(input("Enter Choice:"))
     history_file.write(f"{choice}\n")
-    if choice not in [0, 97, 98, 99]:
+    if menu_stocks.get(choice) is not None:  # menu_stocks에 해당 id가 있으면 실행
         amount = int(input("Enter amount:"))
         history_file.write(f"{amount}\n")
         sell(menu_stocks[choice], amount)
-        pass
     elif choice == 0:
         print_store(choice)
-        pass
     elif choice == 97:  # 품목추가
         add_menu()
-        pass
     elif choice == 98:  # 품목삭제
         delete_menu()
-        pass
     elif choice == 99:  # Bye
         exit_with_savecsv()
         break
     else:
-        pass
+        print("Please enter valid Choice")
